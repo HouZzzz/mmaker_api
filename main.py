@@ -38,5 +38,9 @@ async def auth(token: str, response: Response):
 async def profiles():
     return jsoner.getProfiles()
 
+@app.get("/reports")
+async def reports(filter: str = None):
+    return jsoner.getReports(filter)
+
 
 app.middleware("http")(validate)
