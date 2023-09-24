@@ -56,13 +56,16 @@ def getReports(filter: str):
     for report in reports:
         report['from_user'] = as_json(f'select * from profile where id = {report["from_user"]}')[0]
         report['from_user']['cached_stat'] = as_json(f'select * from cached_stat where id = {report["from_user"]["cached_stat"]}')[0]
+        report['from'] = report.pop('from_user')
 
         report['to_user'] = as_json(f'select * from profile where id = {report["to_user"]}')[0]
         report['to_user']['cached_stat'] = as_json(f'select * from cached_stat where id = {report["to_user"]["cached_stat"]}')[0]
+        report['to'] = report.pop('to_user')
 
         if report['taken_by'] is not None:
             report['taken_by'] = as_json(f'select * from profile where id = {report["taken_by"]}')[0]
             report['taken_by']['cached_stat'] = as_json(f'select * from cached_stat where id = {report["taken_by"]["cached_stat"]}')[0]
+
 
     return reports
 
